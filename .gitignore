@@ -1,0 +1,8 @@
+node_modules/
+dist/
+data/raw/*.csv
+data/raw/*.geojson
+data/raw/*.json
+data/raw/*.zip
+data/raw/*.txt
+!data/raw/source_manifest.json

@@ -1,0 +1,113 @@
+{
+  "generated_at": "2026-09-17T13:50:50+00:00",
+  "sources": [
+    {
+      "key": "food_licenses",
+      "name": "Active Food Establishment Licenses",
+      "publisher": "City of Boston Analyze Boston",
+      "dataset_url": "https://data.boston.gov/dataset/5e4182e3-ba1e-4511-88f8-08a70383e1b6/resource/f1e13724-284d-478c-b8bc-ef042aa5b70b/download/tmpnwx54fxe.csv",
+      "source_url_used": "https://data.boston.gov/api/3/action/datastore_search?resource_id=f1e13724-284d-478c-b8bc-ef042aa5b70b",
+      "download_method": "ckan_datastore_api",
+      "source_downloaded_at": "2026-09-17T13:50:51+00:00",
+      "filename": "data/raw/food_licenses.csv",
+      "file_size_bytes": 554779,
+      "sha256": "d308708cd6c917a27faace07d1988a666dbe46839354d9515a9ad0d9634a7bb8",
+      "format": "csv",
+      "units": "licensed food establishment records",
+      "fields": [
+        "businessname",
+        "dbaname",
+        "licstatus",
+        "licensecat",
+        "descript",
+        "latitude",
+        "longitude"
+      ],
+      "download_error": "HTTPError: HTTP Error 403: Forbidden"
+    },
+    {
+      "key": "neighborhood_boundaries",
+      "name": "BPDA Neighborhood Boundaries",
+      "publisher": "Boston Planning and Development Agency",
+      "dataset_url": "https://data.boston.gov/dataset/bf1a7b50-4c72-4637-b0fa-11d632e3aff1/resource/e5849875-a6f6-4c9c-9d8a-5048b0fbd03e/download/boston_neighborhood_boundaries.geojson",
+      "source_url_used": "https://gis.bostonplans.org/hosting/rest/services/Hosted/Boston_Neighborhood_Boundaries/FeatureServer/5/query?where=1%3D1&outFields=*&outSR=4326&f=geojson",
+      "download_method": "arcgis_feature_service_geojson",
+      "source_downloaded_at": "2026-09-17T13:50:52+00:00",
+      "filename": "data/raw/neighborhood_boundaries.geojson",
+      "file_size_bytes": 1326024,
+      "sha256": "ea706741d168a62b83370399a1f637d028ef5ad50b92548b027ab7f8a73a25b4",
+      "format": "geojson",
+      "units": "neighborhood polygons",
+      "fields": [
+        "neighborhood name",
+        "geometry"
+      ],
+      "download_error": "HTTPError: HTTP Error 403: Forbidden"
+    },
+    {
+      "key": "population_estimates",
+      "name": "2025 Boston Population Estimates, Neighborhood Level",
+      "publisher": "City of Boston Analyze Boston",
+      "dataset_url": "https://data.boston.gov/dataset/d2ece0af-e0ad-42e4-b280-bd0aa1561ed0/resource/b0543358-d03f-4682-bf0c-658ea4573d6f/download/boston_population_estimates_2025_neighborhood_level.csv",
+      "source_url_used": "https://data.boston.gov/api/3/action/datastore_search?resource_id=b0543358-d03f-4682-bf0c-658ea4573d6f",
+      "download_method": "ckan_datastore_api",
+      "source_downloaded_at": "2026-09-17T13:50:53+00:00",
+      "filename": "data/raw/population_estimates.csv",
+      "file_size_bytes": 147939,
+      "sha256": "1aec0a28496bc3ab86ce4b50ef1f093320c3d7e1ee04c5abaf5112fd7da055a0",
+      "format": "csv",
+      "units": "neighborhood demographic estimates",
+      "fields": [
+        "name",
+        "year",
+        "population",
+        "age",
+        "education",
+        "income",
+        "commute mode"
+      ],
+      "download_error": "HTTPError: HTTP Error 403: Forbidden"
+    },
+    {
+      "key": "mbta_gtfs",
+      "name": "MBTA GTFS",
+      "publisher": "Massachusetts Bay Transportation Authority",
+      "dataset_url": "https://cdn.mbta.com/MBTA_GTFS.zip",
+      "source_url_used": "https://cdn.mbta.com/MBTA_GTFS.zip",
+      "download_method": "direct",
+      "source_downloaded_at": "2026-09-17T13:50:55+00:00",
+      "filename": "data/raw/MBTA_GTFS.zip",
+      "file_size_bytes": 24929359,
+      "sha256": "2e9bc30b2d3129fca29f0fabaf3a4f05af237dbd9aca7602941585cd439b3662",
+      "format": "zip",
+      "units": "transit stop records",
+      "fields": [
+        "stops.txt"
+      ],
+      "download_error": null
+    },
+    {
+      "key": "parking_meters",
+      "name": "Parking Meters",
+      "publisher": "City of Boston Analyze Boston",
+      "dataset_url": "https://data.boston.gov/dataset/144e2003-ca70-492b-874e-76cc7355e7e3/resource/df6dac6b-e484-470d-8757-6ecae4e04f2a/download/parking_meters.csv",
+      "source_url_used": "https://data.boston.gov/api/3/action/datastore_search?resource_id=df6dac6b-e484-470d-8757-6ecae4e04f2a",
+      "download_method": "ckan_datastore_api",
+      "source_downloaded_at": "2026-09-17T13:50:57+00:00",
+      "filename": "data/raw/parking_meters.csv",
+      "file_size_bytes": 2603297,
+      "sha256": "b2ec43ccceca95f84588b7a547869154b7b4b04c780573e4a007664c67b0f1d3",
+      "format": "csv",
+      "units": "parking meter and space records",
+      "fields": [
+        "METER_ID",
+        "LATITUDE",
+        "LONGITUDE",
+        "NUMBEROFSPACES",
+        "METER_STATE",
+        "SPACE_STATE"
+      ],
+      "download_error": "HTTPError: HTTP Error 403: Forbidden"
+    }
+  ]
+}

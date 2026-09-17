@@ -1,0 +1,34 @@
+{
+  "validated_at": "2026-09-17T13:51:10+00:00",
+  "neighborhood_count": 26,
+  "boundary_feature_count": 26,
+  "source_count": 5,
+  "top_default_neighborhoods": [
+    {
+      "neighborhood": "West End",
+      "score": 71.5
+    },
+    {
+      "neighborhood": "Beacon Hill",
+      "score": 66.5
+    },
+    {
+      "neighborhood": "Downtown",
+      "score": 63.9
+    },
+    {
+      "neighborhood": "North End",
+      "score": 63.0
+    },
+    {
+      "neighborhood": "Back Bay",
+      "score": 60.7
+    }
+  ],
+  "warnings": [
+    "Leather District has zero population in processed metrics",
+    "Bay Village has zero population in processed metrics",
+    "Harbor Islands has zero population in processed metrics"
+  ],
+  "errors": []
+}

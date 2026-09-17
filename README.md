@@ -16,6 +16,18 @@ This is a class-project site that compares Boston neighborhoods using public, ne
 - Sources, methodology, assumptions, and limitations
 - Reproducible data fetch, build, and validation scripts
 
+## Submission Deliverables
+
+Submission-ready files are in `deliverables/`:
+
+- `collected_neighborhood_dataset.csv` — processed neighborhood-level dataset
+- `one_page_data_methodology_note.md` — one-page data and methods note
+- `five_minute_presentation.md` — five-minute presentation outline and demo flow
+- `reflection.md` — short reflection on what the data supports and cannot prove
+- `requirement_audit.md` — checklist against the assignment requirements
+
+Published site: https://bean-there-boston.yinuozhao959.chatgpt.site
+
 ## Setup
 
 ```bash

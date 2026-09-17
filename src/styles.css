@@ -60,9 +60,29 @@ main {
 }
 
 .hero {
+  position: relative;
+  isolation: isolate;
   color: var(--text);
   padding: 1rem clamp(1rem, 4vw, 3rem) 2.8rem;
   border-bottom: 1px solid var(--line-soft);
+  background-image: linear-gradient(
+      90deg,
+      rgb(9 13 16 / 0.9) 0%,
+      rgb(9 13 16 / 0.76) 42%,
+      rgb(9 13 16 / 0.44) 100%
+    ),
+    url("/assets/cafe-cover.jpg");
+  background-position: center 46%;
+  background-size: cover;
+  min-height: min(760px, 88vh);
+}
+
+.hero::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  content: "";
+  background: rgb(0 0 0 / 0.18);
 }
 
 nav {
@@ -84,7 +104,8 @@ nav strong {
   gap: clamp(1.5rem, 4vw, 4rem);
   align-items: end;
   max-width: 1380px;
-  margin: 4.6rem auto 0;
+  min-height: 600px;
+  margin: 2.5rem auto 0;
 }
 
 .eyebrow,
@@ -132,6 +153,8 @@ h2 {
   gap: 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+  background: rgb(9 13 16 / 0.62);
+  backdrop-filter: blur(10px);
 }
 
 .metric-tile {
@@ -550,11 +573,19 @@ th button.sorted {
   .recommendations {
     grid-template-columns: 1fr;
   }
+
+  .hero-grid {
+    min-height: 560px;
+  }
 }
 
 @media (max-width: 680px) {
   .hero {
     padding-inline: 1rem;
+    min-height: auto;
+    background-image: linear-gradient(rgb(9 13 16 / 0.86), rgb(9 13 16 / 0.74)),
+      url("/assets/cafe-cover.jpg");
+    background-position: center top;
   }
 
   nav,
@@ -564,6 +595,7 @@ th button.sorted {
   }
 
   .hero-grid {
+    min-height: 660px;
     margin-top: 2.4rem;
   }
 

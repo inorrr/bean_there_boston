@@ -134,6 +134,16 @@ const COMPONENT_LABELS: Record<keyof WeightState, string> = {
   low_competition: "Low competition",
 };
 
+const COMPONENT_COLORS: Record<keyof WeightState, string> = {
+  population_density: "#d8a45f",
+  young_student: "#cd6b5c",
+  income: "#8d609e",
+  transit: "#5777a9",
+  walk: "#df8b66",
+  parking: "#b684c6",
+  low_competition: "#efcf9a",
+};
+
 const MAP_METRICS = [
   { key: "score", label: "Opportunity score" },
   { key: "food_establishments_per_10k_residents", label: "Competition" },
@@ -279,7 +289,11 @@ function App() {
             Current slider total: {totalWeight}%. Scores automatically normalize this to 100%.
           </p>
           {Object.entries(COMPONENT_LABELS).map(([key, label]) => (
-            <label className="slider" key={key}>
+            <label
+              className="slider"
+              key={key}
+              style={{ "--slider-color": COMPONENT_COLORS[key as keyof WeightState] } as React.CSSProperties}
+            >
               <span>
                 {label}
                 <b>{weights[key as keyof WeightState]}%</b>
@@ -530,10 +544,22 @@ function BostonMap({
 
 function colorRamp(value: number) {
   const clamped = Math.max(0, Math.min(1, value));
-  const hue = 34 - clamped * 16;
-  const saturation = 42 + clamped * 18;
-  const light = 82 - clamped * 38;
-  return `hsl(${hue} ${saturation}% ${light}%)`;
+  const stops = [
+    [238, 207, 154],
+    [216, 164, 95],
+    [205, 107, 92],
+    [141, 96, 158],
+    [87, 119, 169],
+  ];
+  const scaled = clamped * (stops.length - 1);
+  const index = Math.min(Math.floor(scaled), stops.length - 2);
+  const mix = scaled - index;
+  const [r1, g1, b1] = stops[index];
+  const [r2, g2, b2] = stops[index + 1];
+  const r = Math.round(r1 + (r2 - r1) * mix);
+  const g = Math.round(g1 + (g2 - g1) * mix);
+  const b = Math.round(b1 + (b2 - b1) * mix);
+  return `rgb(${r} ${g} ${b})`;
 }
 
 function RankedBarChart({ rows }: { rows: Array<NeighborhoodMetric & { score: number }> }) {
@@ -544,7 +570,7 @@ function RankedBarChart({ rows }: { rows: Array<NeighborhoodMetric & { score: nu
         <div className="bar-row" key={row.neighborhood_key}>
           <span>{row.neighborhood}</span>
           <div>
-            <i style={{ width: `${(row.score / max) * 100}%` }} />
+            <i style={{ width: `${(row.score / max) * 100}%`, background: colorRamp(row.score / 100) }} />
           </div>
           <b>{row.score.toFixed(1)}</b>
         </div>
@@ -569,7 +595,7 @@ function ComponentChart({
     ["parking", "Parking"],
     ["low_competition", "Low competition"],
   ];
-  const colors = ["#d8a45f", "#9c6b3d", "#f0cf9a", "#7a4a2a"];
+  const colors = ["#d8a45f", "#cd6b5c", "#5777a9", "#8d609e"];
   return (
     <div className="component-chart">
       {components.map(([key, label]) => (

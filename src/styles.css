@@ -13,6 +13,9 @@
   --faint: #8d7866;
   --accent: #d8a45f;
   --accent-2: #f0cf9a;
+  --rose: #cd6b5c;
+  --blue: #5777a9;
+  --plum: #8d609e;
 }
 
 * {
@@ -192,8 +195,17 @@ h2 {
   align-self: start;
   position: sticky;
   top: 0;
+  overflow: hidden;
   background: var(--surface);
   padding: 1rem;
+}
+
+.controls::before {
+  display: block;
+  height: 3px;
+  margin: -1rem -1rem 1rem;
+  content: "";
+  background: linear-gradient(90deg, var(--accent), var(--rose), var(--plum), var(--blue), var(--accent-2));
 }
 
 .section-title {
@@ -239,12 +251,12 @@ h2 {
 }
 
 .slider b {
-  color: var(--accent);
+  color: var(--slider-color, var(--accent));
 }
 
 .slider input {
   width: 100%;
-  accent-color: var(--accent);
+  accent-color: var(--slider-color, var(--accent));
 }
 
 .segmented {
@@ -294,6 +306,15 @@ h2 {
 .recommendation {
   position: relative;
   min-height: 220px;
+  border-top: 3px solid var(--accent);
+}
+
+.recommendation:nth-child(2) {
+  border-top-color: var(--rose);
+}
+
+.recommendation:nth-child(3) {
+  border-top-color: var(--blue);
 }
 
 .rank {
@@ -318,6 +339,16 @@ h2 {
   right: 1rem;
   color: var(--accent);
   font-size: 2.15rem;
+}
+
+.recommendation:nth-child(2) strong,
+.recommendation:nth-child(2) .rank {
+  color: var(--rose);
+}
+
+.recommendation:nth-child(3) strong,
+.recommendation:nth-child(3) .rank {
+  color: #83a2d7;
 }
 
 .recommendation p,
@@ -410,7 +441,7 @@ h2 {
 .bar-row div,
 .component-row div {
   height: 0.72rem;
-  background: #342319;
+  background: #2f211c;
   overflow: hidden;
 }
 
@@ -435,6 +466,25 @@ h2 {
 
 .component-row i {
   min-width: 2px;
+}
+
+.preset-row button:nth-child(2) {
+  border-color: rgb(205 107 92 / 0.58);
+  background: linear-gradient(180deg, rgb(205 107 92 / 0.18), #221711);
+}
+
+.preset-row button:nth-child(3) {
+  border-color: rgb(87 119 169 / 0.64);
+  background: linear-gradient(180deg, rgb(87 119 169 / 0.18), #221711);
+}
+
+.preset-row button:first-child {
+  border-color: rgb(216 164 95 / 0.7);
+  background: linear-gradient(180deg, rgb(216 164 95 / 0.18), #221711);
+}
+
+.icon-button {
+  border-color: rgb(141 96 158 / 0.62);
 }
 
 .tradeoff {

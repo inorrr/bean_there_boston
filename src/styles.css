@@ -557,17 +557,10 @@ th button.sorted {
   margin-bottom: 0;
 }
 
-@media (max-width: 1080px) {
-  .hero-grid,
-  .workspace,
+@media (max-width: 1180px) {
   .visual-grid,
-  .comparison-grid,
-  .info-grid {
+  .comparison-grid {
     grid-template-columns: 1fr;
-  }
-
-  .controls {
-    position: static;
   }
 
   .recommendations {
@@ -579,9 +572,22 @@ th button.sorted {
   }
 }
 
+@media (max-width: 900px) {
+  .hero-grid,
+  .workspace,
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .controls {
+    position: static;
+  }
+}
+
 @media (max-width: 680px) {
   .hero {
     padding-inline: 1rem;
+    padding-bottom: 1.5rem;
     min-height: auto;
     background-image: linear-gradient(rgb(16 11 8 / 0.86), rgb(16 11 8 / 0.74)),
       url("/assets/cafe-cover.jpg");
@@ -595,7 +601,8 @@ th button.sorted {
   }
 
   .hero-grid {
-    min-height: 660px;
+    gap: 1.45rem;
+    min-height: auto;
     margin-top: 2.4rem;
   }
 
@@ -604,8 +611,14 @@ th button.sorted {
   }
 
   .metric-tile {
+    padding: 0.78rem 0.85rem;
     border-right: 0;
     border-bottom: 1px solid var(--line);
+  }
+
+  .metric-tile span {
+    min-height: 0;
+    margin-bottom: 0.35rem;
   }
 
   .metric-tile:last-child {

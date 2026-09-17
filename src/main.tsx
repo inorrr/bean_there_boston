@@ -530,9 +530,10 @@ function BostonMap({
 
 function colorRamp(value: number) {
   const clamped = Math.max(0, Math.min(1, value));
-  const hue = 26 + clamped * 142;
-  const light = 84 - clamped * 34;
-  return `hsl(${hue} 64% ${light}%)`;
+  const hue = 34 - clamped * 16;
+  const saturation = 42 + clamped * 18;
+  const light = 82 - clamped * 38;
+  return `hsl(${hue} ${saturation}% ${light}%)`;
 }
 
 function RankedBarChart({ rows }: { rows: Array<NeighborhoodMetric & { score: number }> }) {
@@ -568,7 +569,7 @@ function ComponentChart({
     ["parking", "Parking"],
     ["low_competition", "Low competition"],
   ];
-  const colors = ["#0f766e", "#b45309", "#2563eb", "#be123c"];
+  const colors = ["#d8a45f", "#9c6b3d", "#f0cf9a", "#7a4a2a"];
   return (
     <div className="component-chart">
       {components.map(([key, label]) => (

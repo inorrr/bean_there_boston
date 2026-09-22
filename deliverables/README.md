@@ -17,7 +17,7 @@ GitHub repository: https://github.com/inorrr/bean_there_boston
    - `deliverables/one_page_data_methodology_note.md`
 
 4. Five-Minute Presentation
-   - `deliverables/five_minute_presentation.md`
+   - [https://youtu.be/tvGftsPrZno](https://youtu.be/tvGftsPrZno)
 
 5. Short Reflection
    - `deliverables/reflection.md`

@@ -438,6 +438,11 @@ function App() {
       </section>
 
       <InfoSections manifest={data.manifest} generatedAt={data.metrics.metadata.generated_at} />
+      <footer className="site-footer">
+        <a href="https://github.com/inorrr/bean_there_boston/tree/main/deliverables" target="_blank" rel="noopener noreferrer">
+          View Project Deliverables on GitHub
+        </a>
+      </footer>
     </main>
   );
 }

@@ -300,7 +300,7 @@ def build_demographics(metrics: dict[str, dict], report: dict) -> None:
     report["unmatched_population_neighborhoods"] = sorted(set(unmatched))
 
 
-def build_food(metrics: dict[str, dict], neighborhoods: list[dict], report: dict) -> None:
+def build_food(metrics: dict[str, dict], neighborhoods: list[dict], report: dict, point_layers: dict[str, list[dict]]) -> None:
     rows = [lower_record(row) for row in read_csv(RAW_DIR / "food_licenses.csv")]
     report["source_counts"]["food_license_rows"] = len(rows)
     active = 0
@@ -319,13 +319,18 @@ def build_food(metrics: dict[str, dict], neighborhoods: list[dict], report: dict
         joined += 1
         metrics[key]["food_establishments"] += 1
         text = " ".join(str(row.get(field, "")) for field in ["businessname", "dbaname", "descript", "licensecat"])
+        name = str(row.get("dbaname") or row.get("businessname") or "Food license").strip()
+        category = str(row.get("descript") or row.get("licensecat") or "Active food establishment").strip()
+        point = {"lat": round(lat, 6), "lon": round(lon, 6), "name": name, "neighborhood_key": key, "category": category}
+        point_layers["food_licenses"].append(point)
         if CAFE_RE.search(text):
             metrics[key]["cafe_like_establishments"] += 1
+            point_layers["cafe_like"].append(point)
     report["source_counts"]["active_food_license_rows_with_coordinates"] = active
     report["source_counts"]["food_license_rows_joined"] = joined
 
 
-def build_parking(metrics: dict[str, dict], neighborhoods: list[dict], report: dict) -> None:
+def build_parking(metrics: dict[str, dict], neighborhoods: list[dict], report: dict, point_layers: dict[str, list[dict]]) -> None:
     rows = [lower_record(row) for row in read_csv(RAW_DIR / "parking_meters.csv")]
     report["source_counts"]["parking_meter_rows"] = len(rows)
     active = 0
@@ -349,7 +354,7 @@ def build_parking(metrics: dict[str, dict], neighborhoods: list[dict], report: d
     report["source_counts"]["parking_rows_joined"] = joined
 
 
-def build_mbta(metrics: dict[str, dict], neighborhoods: list[dict], report: dict) -> None:
+def build_mbta(metrics: dict[str, dict], neighborhoods: list[dict], report: dict, point_layers: dict[str, list[dict]]) -> None:
     with zipfile.ZipFile(RAW_DIR / "MBTA_GTFS.zip") as archive:
         with archive.open("stops.txt") as fh:
             rows = list(csv.DictReader((line.decode("utf-8-sig") for line in fh)))
@@ -367,6 +372,18 @@ def build_mbta(metrics: dict[str, dict], neighborhoods: list[dict], report: dict
         if not key:
             continue
         metrics[key]["mbta_stops"] += 1
+        point = {
+            "lat": round(lat, 6),
+            "lon": round(lon, 6),
+            "name": str(row.get("stop_name") or "MBTA stop").strip(),
+            "neighborhood_key": key,
+        }
+        vehicle_type = str(row.get("vehicle_type", "")).strip()
+        location_type = str(row.get("location_type", "")).strip()
+        if vehicle_type == "3":
+            point_layers["mbta_bus_stops"].append(point)
+        elif vehicle_type or location_type in {"1", "2"}:
+            point_layers["mbta_train_stops"].append(point)
         joined += 1
         location_type = str(row.get("location_type", "")).strip()
         parent_station = str(row.get("parent_station", "")).strip()
@@ -442,6 +459,40 @@ def feature_collection(neighborhoods: list[dict], metrics: dict[str, dict]) -> d
     return {"type": "FeatureCollection", "features": features}
 
 
+def point_layer_collection(point_layers: dict[str, list[dict]]) -> dict:
+    layer_meta = {
+        "food_licenses": {
+            "label": "Food licenses",
+            "description": "Active food establishment licenses with usable coordinates.",
+        },
+        "cafe_like": {
+            "label": "Cafe-like competitors",
+            "description": "Active food licenses whose name or category text suggests coffee, tea, bakery, or similar cafe concepts.",
+        },
+        "mbta_bus_stops": {
+            "label": "MBTA bus stops",
+            "description": "MBTA GTFS stops with bus vehicle type within Boston neighborhood boundaries.",
+        },
+        "mbta_train_stops": {
+            "label": "MBTA train and rail stops",
+            "description": "MBTA GTFS subway, rail, ferry, and station-like stops within Boston neighborhood boundaries.",
+        },
+    }
+    return {
+        "generated_at": now_iso(),
+        "layers": [
+            {
+                "key": key,
+                "label": meta["label"],
+                "description": meta["description"],
+                "count": len(point_layers[key]),
+                "points": point_layers[key],
+            }
+            for key, meta in layer_meta.items()
+        ],
+    }
+
+
 def main() -> int:
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
     PUBLIC_DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -473,11 +524,17 @@ def main() -> int:
         }
         for nbhd in neighborhoods
     }
+    point_layers: dict[str, list[dict]] = {
+        "food_licenses": [],
+        "cafe_like": [],
+        "mbta_bus_stops": [],
+        "mbta_train_stops": [],
+    }
 
     build_demographics(metrics, report)
-    build_food(metrics, neighborhoods, report)
-    build_mbta(metrics, neighborhoods, report)
-    build_parking(metrics, neighborhoods, report)
+    build_food(metrics, neighborhoods, report, point_layers)
+    build_mbta(metrics, neighborhoods, report, point_layers)
+    build_parking(metrics, neighborhoods, report, point_layers)
     rows = finalize(metrics)
 
     metadata = {
@@ -496,6 +553,9 @@ def main() -> int:
     boundaries = feature_collection(neighborhoods, metrics)
     (PROCESSED_DIR / "neighborhood_boundaries.geojson").write_text(json.dumps(boundaries), encoding="utf-8")
     (PUBLIC_DATA_DIR / "neighborhood_boundaries.geojson").write_text(json.dumps(boundaries), encoding="utf-8")
+    map_points = point_layer_collection(point_layers)
+    (PROCESSED_DIR / "map_points.json").write_text(json.dumps(map_points, indent=2), encoding="utf-8")
+    (PUBLIC_DATA_DIR / "map_points.json").write_text(json.dumps(map_points, indent=2), encoding="utf-8")
     (PROCESSED_DIR / "build_report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(f"Built {len(rows)} neighborhoods")
     return 0

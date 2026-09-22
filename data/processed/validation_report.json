@@ -1,8 +1,14 @@
 {
-  "validated_at": "2026-09-17T15:12:51+00:00",
+  "validated_at": "2026-09-22T02:10:55+00:00",
   "neighborhood_count": 26,
   "boundary_feature_count": 26,
   "source_count": 5,
+  "map_point_layers": {
+    "food_licenses": 3140,
+    "cafe_like": 444,
+    "mbta_bus_stops": 1952,
+    "mbta_train_stops": 507
+  },
   "top_default_neighborhoods": [
     {
       "neighborhood": "West End",

@@ -1,24 +1,30 @@
 # Bean There Boston
 
-Decision-support prototype for the question: **Where should you open a new cafe in Boston?**
+Bean There Boston helps people explore **where a new cafe could thrive in Boston**. The site combines public neighborhood, business-license, transit, and parking-proxy data into an interactive map, comparison views, rankings, and a transparent methods section.
 
-This is a class-project site that compares Boston neighborhoods using public, neighborhood-level data. It is meant to help a small-business owner or student analyst choose neighborhoods for deeper site visits. It does **not** predict profitability, recommend a specific storefront, or use paid/private/sensitive data.
+It is designed for early neighborhood exploration: use it to compare areas, understand tradeoffs, and decide where to visit next. It does not predict profitability, choose a storefront, or replace rent, foot-traffic, zoning, and on-the-ground due diligence.
 
 ## What It Includes
 
 - Responsive Vite + React site
-- Interactive Boston neighborhood choropleth map
-- Adjustable Cafe Opportunity Score with presets
-- Top recommendations that update as weights change
-- Ranking table with sorting and search
-- Component comparison chart for 2-4 neighborhoods
-- Demand-vs-competition scatter plot
-- Sources, methodology, assumptions, and limitations
+- Overview screen with headline, project context, and key dataset counts
+- Full-screen Boston map with real OpenStreetMap raster-tile context
+- Warm opportunity-score overlay with a readable legend
+- Point-layer toggles for food licenses, cafe-like businesses, MBTA bus stops, and MBTA train stops
+- Desktop map panels for score controls and selected-neighborhood details
+- Mobile map layout with score controls before the map and selected-neighborhood details below it
+- Adjustable Cafe Opportunity Score with presets and normalized weights
+- Selected-neighborhood score breakdown and tailored interpretation
+- Cafe-like business hover details on desktop
+- Neighborhood Archetypes, Neighborhood Signal Mix, and Opportunity Gap comparison views
+- Searchable ranking table with Excel-style multi-column sorting
+- Methods section with metric definitions, public source links, field examples, limitations, and practical next steps
+- Floating section navigation for Overview, Map, Compare, Rankings, and Methods
 - Reproducible data fetch, build, and validation scripts
 
-## Submission Deliverables
+## Supporting Files
 
-Submission-ready files are in `deliverables/`:
+Supporting analysis and submission files are in `deliverables/`:
 
 - `collected_neighborhood_dataset.csv` — processed neighborhood-level dataset
 - `one_page_data_methodology_note.md` — one-page data and methods note
@@ -59,12 +65,14 @@ Generated frontend data:
 
 - `public/data/neighborhood_metrics.json`
 - `public/data/neighborhood_boundaries.geojson`
+- `public/data/map_points.json`
 - `public/data/source_manifest.json`
 
 Generated review artifacts:
 
 - `data/processed/neighborhood_metrics.json`
 - `data/processed/neighborhood_boundaries.geojson`
+- `data/processed/map_points.json`
 - `data/processed/build_report.json`
 - `data/processed/validation_report.json`
 
@@ -72,7 +80,7 @@ Raw public files are cached in `data/raw/`. The source manifest records the URL 
 
 ## Public Sources
 
-The project uses the PRD-listed public sources:
+The project uses these public sources:
 
 - City of Boston Active Food Establishment Licenses
 - BPDA Neighborhood Boundaries
@@ -80,7 +88,7 @@ The project uses the PRD-listed public sources:
 - MBTA GTFS stops
 - City of Boston Parking Meters
 
-If a direct Boston download is blocked, `scripts/fetch_data.py` falls back to the CKAN datastore API for CSV resources. The neighborhood GeoJSON direct download returned `403` during implementation, so the script uses the public BPDA ArcGIS FeatureServer GeoJSON endpoint and records that in the manifest.
+If a direct Boston download is blocked, `scripts/fetch_data.py` falls back to the CKAN datastore API for CSV resources. The neighborhood GeoJSON is fetched from the public BPDA ArcGIS FeatureServer GeoJSON endpoint and recorded in the manifest.
 
 ## Methodology
 
@@ -88,8 +96,10 @@ Boston neighborhood boundaries are the canonical geography. Point datasets are a
 
 - Active food licenses become broad food-establishment competition.
 - Cafe-like businesses are flagged with approximate name/category terms such as coffee, cafe, espresso, tea, bakery, donut, barista, roast, and boba.
-- MBTA GTFS stops become transit access.
-- Active parking meter rows become a short-term parking proxy.
+- MBTA GTFS stops become transit access and are split into bus-stop and train-stop point layers for the map.
+- Active parking meter rows become a short-term parking proxy in the score.
+
+The point sources are also exported to `map_points.json` for exploratory map layers. These layers help users inspect activity inside large neighborhoods, while the official score remains neighborhood-level.
 
 The population estimates provide:
 
@@ -114,13 +124,16 @@ Default weights:
 
 ## Demo Flow
 
-1. Open the site and frame the question as early neighborhood screening.
-2. Show the map colored by opportunity score.
-3. Review the top three recommended neighborhoods and explanation text.
-4. Switch to the Student Cafe preset and note how rankings change.
-5. Compare two to four neighborhoods in the component chart.
-6. Use the table search/sort for a neighborhood-level drilldown.
-7. End on the sources and limitations sections.
+1. Open the overview and frame the decision as choosing promising Boston neighborhoods for cafe site visits.
+2. Move to the map and read the warm opportunity-score overlay with the legend.
+3. Toggle cafe-like businesses, food licenses, bus stops, and train stops to inspect local activity inside larger neighborhoods.
+4. Adjust the score controls or presets to test how different business priorities change the map and rankings.
+5. Select a neighborhood to review its score, rank context, indicators, and component breakdown.
+6. Use Neighborhood Archetypes to spot different cafe strategy profiles.
+7. Use Neighborhood Signal Mix to compare selected neighborhoods across the core metrics.
+8. Use Opportunity Gap to find neighborhoods with stronger demand and lighter cafe-like competition.
+9. Use the ranking table search and sortable headers for a neighborhood-level drilldown.
+10. Review Methods for metric definitions, source links, limitations, and practical next steps.
 
 ## Current Validation Notes
 
@@ -145,4 +158,4 @@ Warnings:
 - Parking meters do not represent all parking supply or curb rules.
 - Public datasets may lag real-world openings, closures, and demographic shifts.
 
-Before signing a lease, collect storefront rent, pedestrian counts, nearby anchors, zoning constraints, direct competitor menus/prices, and on-the-ground observations.
+Use the map, comparisons, and rankings to choose where to look more closely. Before committing to a location, validate storefront rent, pedestrian counts, nearby anchors, zoning constraints, direct competitor menus and prices, and on-the-ground observations.

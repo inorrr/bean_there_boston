@@ -40,6 +40,7 @@ def main() -> int:
     metrics_path = PUBLIC_DATA_DIR / "neighborhood_metrics.json"
     boundaries_path = PUBLIC_DATA_DIR / "neighborhood_boundaries.geojson"
     manifest_path = PUBLIC_DATA_DIR / "source_manifest.json"
+    map_points_path = PUBLIC_DATA_DIR / "map_points.json"
     errors: list[str] = []
     warnings: list[str] = []
 
@@ -64,12 +65,27 @@ def main() -> int:
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         sources = manifest.get("sources", [])
 
+    if not map_points_path.exists():
+        errors.append("Missing public/data/map_points.json")
+        point_layers = []
+    else:
+        map_points = json.loads(map_points_path.read_text(encoding="utf-8"))
+        point_layers = map_points.get("layers", [])
+
     if len(neighborhoods) < 15:
         errors.append(f"Expected at least 15 neighborhoods, found {len(neighborhoods)}")
     if len(features) != len(neighborhoods):
         errors.append(f"Boundary feature count {len(features)} does not match metric count {len(neighborhoods)}")
     if len(sources) < 5:
         errors.append(f"Expected at least 5 source manifest entries, found {len(sources)}")
+    expected_point_layers = {"food_licenses", "cafe_like", "mbta_bus_stops", "mbta_train_stops"}
+    point_layer_keys = {layer.get("key") for layer in point_layers}
+    missing_point_layers = expected_point_layers - point_layer_keys
+    if missing_point_layers:
+        errors.append(f"Missing map point layers: {', '.join(sorted(missing_point_layers))}")
+    for layer in point_layers:
+        if layer.get("key") in expected_point_layers and not layer.get("points"):
+            warnings.append(f"{layer.get('label', layer.get('key'))} map point layer has no points")
 
     geometry_keys = {feature.get("properties", {}).get("neighborhood_key") for feature in features}
     for row in neighborhoods:
@@ -88,6 +104,7 @@ def main() -> int:
         "neighborhood_count": len(neighborhoods),
         "boundary_feature_count": len(features),
         "source_count": len(sources),
+        "map_point_layers": {layer.get("key"): layer.get("count", len(layer.get("points", []))) for layer in point_layers},
         "top_default_neighborhoods": [
             {
                 "neighborhood": row.get("neighborhood"),

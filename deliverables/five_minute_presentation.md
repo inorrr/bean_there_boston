@@ -1,75 +1,87 @@
-# Five-Minute Presentation: Bean There Boston
+# Five-Minute Screen Recording Guide: Bean There Boston
 
-## Slide 1: Question and User
+Use this as a narration and interaction guide while recording the website. The goal is to show how someone would use Bean There Boston to choose Boston neighborhoods for deeper cafe site visits.
 
-**Question:** Where should someone consider opening a new cafe in Boston?
+## 0:00-0:40 — Open With the Question
 
-**User:** A small cafe founder or student analyst doing early neighborhood screening before site visits.
+**On screen:** Start on the Overview section.
 
-**Important boundary:** This is not a profit forecast and does not recommend an exact storefront.
+**Say:** Bean There Boston asks where a new cafe could thrive in Boston. It is built for early neighborhood exploration, before someone commits to visiting specific storefronts or comparing leases.
 
-## Slide 2: Data Collected
+**Show:** Point out the headline, the short description, and the three overview metrics: number of neighborhoods, top score, and data sources.
 
-I used public, neighborhood-level Boston data:
+**Say:** The site does not choose an exact address or predict profit. It helps narrow a big citywide search into a more focused shortlist.
 
-- Active food establishment licenses for competition.
-- BPDA neighborhood boundaries for geography.
-- 2025 Boston population estimates for demand and demographics.
-- MBTA GTFS stops for transit access.
-- Parking meter data for short-term parking access.
+## 0:40-1:50 — Explore the Map
 
-The scripts cache raw files, record source URLs and hashes, and use CKAN or ArcGIS API fallbacks when direct downloads are blocked.
+**On screen:** Click the floating navigation item for Map.
 
-## Slide 3: How the Score Works
+**Say:** The main view is an interactive opportunity map. The warm color overlay shows the current Cafe Opportunity Score by neighborhood, and the legend explains the low-to-high range.
 
-The Cafe Opportunity Score combines seven normalized factors:
+**Show:** Zoom and drag the map briefly.
 
-- Population density.
-- Young adult and student demand.
-- Higher-income household share.
-- Transit access.
-- Walk commute share.
-- Parking access.
-- Low competition.
+**Say:** The base map stays aligned with the neighborhoods, so I can zoom into areas like Back Bay, the Charles River corridor, Downtown, and nearby neighborhoods while keeping the opportunity overlay in place.
 
-Users can change the weights, choose presets, and switch the competition definition. The score updates in the browser, so the ranking changes as assumptions change.
+**Show:** Use the point-layer toggles. Keep cafe-like businesses on, then briefly toggle food licenses, bus stops, and train stops.
 
-## Slide 4: Site Walkthrough
+**Say:** These dots do not change the score. They help inspect what is happening inside large neighborhoods. Red cafe-like dots show likely cafe competitors, food licenses show broader food-service activity, and bus and train stops show transit context.
 
-Demonstrate:
+**Show:** Hover over a cafe-like dot.
 
-1. The hero indicators: 26 neighborhoods, top score, and data sources.
-2. The interactive map colored by opportunity score.
-3. The top-three recommendation cards.
-4. The weight sliders and presets.
-5. The comparison panel and ranking table.
-6. The sources and limitations section.
+**Say:** Hovering over a cafe-like point shows the business name, category, and neighborhood, which helps turn a broad neighborhood score into more concrete local context.
 
-## Slide 5: Main Findings
+## 1:50-2:40 — Explain the Score Controls
 
-Under the default weights:
+**On screen:** Use the score controls panel.
 
-- West End ranks first with a score of 71.5 because it combines high density, strong MBTA access, and relatively favorable broad competition.
-- Beacon Hill ranks second with a score of 66.5 and is a strong candidate for a neighborhood cafe concept.
-- Downtown ranks third with a score of 63.9 because access and demand are strong, but food-license competition is much higher.
-- North End and Back Bay also score strongly but need extra on-the-ground competitor checks.
+**Say:** The score combines density, young and student demand, higher-income households, transit access, walk commute share, parking access, and lower competition. The sliders let me adjust how much each factor matters.
 
-## Slide 6: Recommendations
+**Show:** Click one preset, then Reset.
 
-Recommendation 1: Prioritize West End and Beacon Hill for early site visits. They combine strong density and access with useful demand signals.
+**Say:** Presets are useful for testing different cafe strategies. For example, a student-focused concept can put more emphasis on young and student demand, while a transit-focused concept can put more emphasis on access. The map and ranking table update when the score changes.
 
-Recommendation 2: Treat Downtown as a high-access but high-competition option. It may fit a grab-and-go concept, but direct competitor menus, rents, and foot traffic should be checked before moving forward.
+**Show:** Click a neighborhood on the map.
 
-Recommendation 3: Use Longwood, Fenway, Mission Hill, and Allston for a student-focused sensitivity check. These neighborhoods rank highly on young/student demand, even if they are not all top-five under the default score.
+**Say:** Selecting a neighborhood opens a detail panel with the score, rank context, core indicators, and score breakdown. This makes the map easier to interpret because I can see why a neighborhood is scoring the way it does.
 
-## Slide 7: What the Data Cannot Prove
+## 2:40-3:35 — Compare Neighborhood Patterns
 
-The data can support neighborhood screening, but it cannot prove profitability. It does not include rent, exact storefront availability, lease terms, pedestrian counts, business costs, zoning constraints, or real-time competitor openings and closures. The output should guide field research, not replace it.
+**On screen:** Click the floating navigation item for Compare.
 
-## Suggested Live Demo Timing
+**Say:** The Compare section is not just another version of the weighted score. It helps explain the neighborhood signals from a few different angles.
 
-- 0:00-0:45: Introduce the question, user, and limits.
-- 0:45-1:30: Explain the datasets and score.
-- 1:30-3:30: Demonstrate the map, controls, comparison chart, and table.
-- 3:30-4:30: Explain findings and recommendations.
-- 4:30-5:00: End with limitations and next steps.
+**Show:** Point to Neighborhood Archetypes.
+
+**Say:** The archetype cards identify different kinds of cafe opportunities, such as student-heavy demand, transit-rich access, and lower cafe-like competition.
+
+**Show:** Use the Neighborhood Signal Mix panel. Change or point to selected neighborhoods if useful.
+
+**Say:** Neighborhood Signal Mix compares selected neighborhoods across the core components. The colors connect each selected neighborhood to its bars, so it is easier to see which place is stronger on each signal.
+
+**Show:** Point to the Opportunity Gap plot and hover over a circle.
+
+**Say:** Opportunity Gap compares overall demand against cafe-like competition. The most interesting area is where demand is stronger and cafe-like competition is lighter. Hovering over a circle shows the neighborhood and its values.
+
+## 3:35-4:20 — Use the Ranking Table
+
+**On screen:** Click the floating navigation item for Rankings.
+
+**Say:** The ranking table provides the detailed neighborhood list. I can search for a neighborhood, and I can sort columns like score, density, transit access, or competition.
+
+**Show:** Click a few column headers to demonstrate ascending and descending sort. If possible, show the priority number that appears when multiple sort columns are active.
+
+**Say:** The table behaves like a spreadsheet: the most recent sort becomes the main sort, and earlier sorts stay as tie-breakers. That helps compare neighborhoods when several places have similar values.
+
+## 4:20-5:00 — End With Methods and Next Steps
+
+**On screen:** Click the floating navigation item for Methods.
+
+**Say:** The Methods section explains where the numbers come from. It defines every score component, links to the public datasets, lists example fields and units, and explains the main limitations.
+
+**Show:** Scroll through Data and Methods, Sources, Limitations and Assumptions, and What to Take Forward.
+
+**Say:** The most useful takeaway is that the site helps create a shortlist, not a final leasing decision. After using the map, comparisons, and rankings, the next step is to visit specific corridors, compare rents, count foot traffic, check nearby menus and prices, and confirm zoning and lease constraints.
+
+**On screen:** End near the footer or the GitHub link.
+
+**Say:** Bean There Boston turns public neighborhood data into a practical starting point for deciding where to look next.

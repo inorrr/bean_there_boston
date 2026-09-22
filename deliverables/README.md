@@ -24,12 +24,12 @@ GitHub repository: https://github.com/inorrr/bean_there_boston
 
 ## Requirement Check
 
-- Problem and intended user: covered in the site hero and methodology note.
-- Data collection explanation: covered in the site, README, source manifest, and methodology note.
-- Three or more charts/maps/tables/indicators: map, ranking bars, comparison chart, scatter plot, table, and hero indicators.
-- Filters/comparison controls: score sliders, presets, competition mode toggle, map metric selector, table search/sort, and comparison selector.
-- Findings and recommendations: top recommendation cards, presentation, and reflection.
-- Sources, dates, units, definitions: source manifest, site sources section, CSV columns, and methodology note.
-- Missing data, bias, uncertainty, limitations: site limitations section, methodology note, and reflection.
-- Responsive design: verified on desktop and mobile-sized viewport.
+- Problem and intended user: covered in the overview screen and methodology note.
+- Data collection explanation: covered in the Methods section, README, source manifest, and methodology note.
+- Three or more charts, maps, tables, or indicators: opportunity-score map, map point layers, Neighborhood Signal Mix chart, Opportunity Gap scatterplot, sortable ranking table, and overview indicators.
+- Filters/comparison controls: score sliders, presets, point-layer toggles, selected-neighborhood details, neighborhood comparison selector, table search, and multi-column table sorting.
+- Findings and recommendations: comparison views, ranking table, presentation, methodology note, and reflection.
+- Sources, dates, units, definitions: source manifest, Methods section, CSV columns, README, and methodology note.
+- Missing data, bias, uncertainty, limitations: Methods section, methodology note, and reflection.
+- Responsive design: desktop uses overlay map panels; mobile stacks score controls, map, and selected-neighborhood details as normal sections.
 - Sensitive data: no names, contact details, medical information, exact personal locations, or other sensitive personal data are collected.
